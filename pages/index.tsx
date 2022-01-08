@@ -52,7 +52,7 @@ export default function Home({
   allPostsData: PostData[], tags: string[], tagToPostIds: TagToPostIds, idToPost: IdToPost
 }) {
   const [selectedTags, setSelectedTags] = useState([] as string[])
-  const [renderPosts, setRenderPosts] = useState([] as PostData[])
+  const [renderPosts, setRenderPosts] = useState(allPostsData as PostData[])
   const onTagClick = (tag: string, isPushed: boolean) => {
     var nowSelectedTags: string[] = [];
     if (isPushed) {
