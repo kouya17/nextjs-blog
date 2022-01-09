@@ -18,9 +18,9 @@ interface IdToPost {
 function searchPostIds(keyword: string, posts: PostData[]): string[] {
   const reducer = (pre: string[], current: PostData) => {
     if (
-      //current.fileData.matter.title.indexOf(keyword) !== -1
-      //||
-      current.fileData.matter.tags.includes(keyword)
+      current.fileData.matter.title.toLowerCase().includes(keyword.toLowerCase())
+      || current.fileData.matter.abstract.toLowerCase().includes(keyword.toLowerCase())
+      || current.fileData.matter.tags.includes(keyword)
     ) {
       pre.push(current.fileData.id)
     }
@@ -29,14 +29,34 @@ function searchPostIds(keyword: string, posts: PostData[]): string[] {
   return posts.reduce(reducer, [])
 }
 
-function getPostsByTags(tags: string[], tagToPostIds: TagToPostIds, idToPost: IdToPost): PostData[] {
+function getPostIdsByOR(keywords: string[], tagToPostIds: TagToPostIds): string[] {
   const reducer = (pre: string[], current: string) => {
     if (tagToPostIds[current]) {
       return Array.from(new Set<string>(pre.concat(tagToPostIds[current] as string[])))
     }
     return pre
   }
-  const ids = tags.reduce(reducer, [])
+  return keywords.reduce(reducer, [])
+}
+
+function getPostIdsByAND(tags: string[], text: string, tagToPostIds: TagToPostIds, allPostIds: string[], idToPost: IdToPost): string[] {
+  const reducer = (pre: string[], current: string) => {
+    if (tagToPostIds[current]) {
+      return pre.filter(item => tagToPostIds[current].includes(item))
+    }
+    return pre
+  }
+  const tagMatchIds = tags.reduce(reducer, allPostIds)
+  // if text is empty, skip to search by text
+  if (text === '') {
+    return tagMatchIds
+  }
+  const tagMatchPosts = tagMatchIds.map(id => idToPost[id])
+  return searchPostIds(text, tagMatchPosts)
+}
+
+function getPostsByTagsAndText(tags: string[], text: string, tagToPostIds: TagToPostIds, idToPost: IdToPost, allPostIds: string[]): PostData[] {
+  const ids = getPostIdsByAND(tags, text, tagToPostIds, allPostIds, idToPost)
   const idToPostsReducer = (pre: PostData[], current: string) => {
     if (idToPost[current]) {
       pre.push(idToPost[current])
@@ -47,12 +67,21 @@ function getPostsByTags(tags: string[], tagToPostIds: TagToPostIds, idToPost: Id
 }
 
 export default function Home({
-  allPostsData, tags, tagToPostIds, idToPost
+  allPostsData, tags, tagToPostIds, idToPost, allPostIds
 }: {
-  allPostsData: PostData[], tags: string[], tagToPostIds: TagToPostIds, idToPost: IdToPost
+  allPostsData: PostData[], tags: string[], tagToPostIds: TagToPostIds, idToPost: IdToPost, allPostIds: string[]
 }) {
   const [selectedTags, setSelectedTags] = useState([] as string[])
-  const [renderPosts, setRenderPosts] = useState(allPostsData as PostData[])
+  const [searchText, setSearchText] = useState('' as string)
+  const [renderPosts, setRenderPosts] = useState(allPostsData)
+  const updateRenderPosts = (tags: string[], searchText: string) => {
+    // if tags have searchText, set search Text empty to reduce calculation
+    if (tags.includes(searchText))
+    {
+      searchText = ''
+    }
+    setRenderPosts(getPostsByTagsAndText(tags, searchText, tagToPostIds, idToPost, allPostIds))
+  }
   const onTagClick = (tag: string, isPushed: boolean) => {
     var nowSelectedTags: string[] = [];
     if (isPushed) {
@@ -62,7 +91,12 @@ export default function Home({
     }
     setSelectedTags(nowSelectedTags);
     console.log(`selectedTags: ${nowSelectedTags}`);
-    setRenderPosts(getPostsByTags(nowSelectedTags, tagToPostIds, idToPost))
+    updateRenderPosts(nowSelectedTags, searchText)
+  }
+  const onSearchChange = (text: string) => {
+    console.log(`seatchText: ${text}`)
+    setSearchText(text)
+    updateRenderPosts(selectedTags, text)
   }
 
   return (
@@ -74,7 +108,7 @@ export default function Home({
       <h2 className='mt-4 mb-2 text-lg'>キーワードで絞り込む</h2>
       <Tags tags={tags} onClick={onTagClick}/>
       <h2 className='mt-4 mb-2 text-lg'>任意の単語で絞り込む</h2>
-      <Search />
+      <Search onChange={onSearchChange}/>
       <section>
         <ul>
           <Posts postsData={renderPosts} path="/posts"/>
@@ -95,12 +129,16 @@ export const getStaticProps: GetStaticProps = async () => {
   allPostsData.forEach((post) => {
     idToPost[post.fileData.id] = post
   })
+  const allPostIds = allPostsData.map((item) => {
+    return item.fileData.id
+  })
   return {
     props: {
       allPostsData,
       tags,
       tagToPostIds,
-      idToPost
+      idToPost,
+      allPostIds
     }
   }
 }
