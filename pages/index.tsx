@@ -115,6 +115,22 @@ export default function Home({
     updateRenderPosts(selectedTags, text)
   }
   const sortKinds = ["新着", "閲覧数"]
+  const onSelectChange = (sort: string) => {
+    console.log(`sort: ${sort}`)
+    if (sort === '閲覧数') {
+      setRenderPosts(renderPosts.sort((a, b) => {
+        if (a.view < b.view) return -1
+        if (a.view > b.view) return 1
+        return 0
+      }))
+    } else {
+      setRenderPosts(renderPosts.sort((a, b) => {
+        if (a.fileData.matter.date < b.fileData.matter.date) return -1
+        if (a.fileData.matter.date > b.fileData.matter.date) return 1
+        return 0
+      }))
+    }
+  }
 
   return (
     <Layout home>
@@ -127,7 +143,7 @@ export default function Home({
       <h2 className='mt-4 mb-2 text-lg'>任意の単語で絞り込む (スペース区切りでAND検索可)</h2>
       <Search onChange={onSearchChange}/>
       <h2 className='mt-4 mb-2 text-lg'>表示順</h2>
-      <Dropdown items={sortKinds} />
+      <Dropdown items={sortKinds} onChange={onSelectChange} />
       <section>
         <ul>
           <Posts postsData={renderPosts} path="/posts"/>
