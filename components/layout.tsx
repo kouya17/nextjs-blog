@@ -2,7 +2,7 @@ import Head from 'next/head'
 import Link from 'next/link'
 import Navigation from './navigation'
 
-export const siteTitle = 'Blog'
+export const siteTitle = 'Vtrend'
 
 export default function Layout({
   children,

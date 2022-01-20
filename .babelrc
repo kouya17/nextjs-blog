@@ -1,0 +1,18 @@
+// .babelrc
+{
+	"presets": [
+		"next/babel"
+	],
+	"plugins": [
+		[
+			"prismjs",
+			{
+				// https://prismjs.com/#supported-languages
+				"languages": ["javascript"],
+				"plugins": ["line-numbers"],
+				"theme": "tomorrow",
+				"css": true
+			}
+		]
+	]
+}

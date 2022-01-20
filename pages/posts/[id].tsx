@@ -3,6 +3,7 @@ import { getAllPostIds, getPostData, PostData } from '../../lib/posts'
 import Head from 'next/head'
 import Date from '../../components/date'
 import { GetStaticProps, GetStaticPaths } from 'next'
+import PostDetail from '../../components/postDetail'
 
 export default function Post({ postData }: { postData: PostData }) {
   return (
@@ -11,11 +12,7 @@ export default function Post({ postData }: { postData: PostData }) {
         <title>{postData.fileData.matter.title}</title>
       </Head>
       <article>
-        <h1>{postData.fileData.matter.date}</h1>
-        <div>
-          <Date dateString={postData.fileData.matter.date} />
-        </div>
-        <div dangerouslySetInnerHTML={{ __html: postData.fileData.contentHtml }} />
+        <PostDetail postData={postData} />
       </article>
     </Layout>
   )
