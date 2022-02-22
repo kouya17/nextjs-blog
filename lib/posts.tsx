@@ -12,6 +12,7 @@ export interface PostMatter {
   title: string;
   tags: string[];
   abstract: string;
+  m3u8: string;
 }
 
 export interface PostFileData {

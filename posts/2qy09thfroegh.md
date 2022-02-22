@@ -3,6 +3,7 @@ title: 'Why do we use it?'
 date: '2020-01-04'
 tags: ['a']
 abstract: 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout'
+m3u8: '/movies/20220220090004/playlist.m3u8'
 ---
 
 ```js

@@ -3,6 +3,7 @@ import { PostData } from "../lib/posts"
 import Link from 'next/link'
 import Tags from "../components/tags"
 import Date from "./date";
+import VideoPlayer from "./videoPlayer"
 
 interface PostProps {
   postData: PostData,
@@ -21,9 +22,14 @@ const Post = ({ postData, url }: PostProps) => {
             <div className="m-1">
               <Tags tags={postData.fileData.matter.tags} />
             </div>
+            {/*
             <p className="m-1 line-clamp-3">
               {postData.fileData.matter.abstract}
             </p>
+            */}
+            <div className="m-1">
+              <VideoPlayer src={postData.fileData.matter.m3u8} />
+            </div>
             <small className="m-1 invisible">
               <Date dateString={postData.fileData.matter.date} />
             </small>
