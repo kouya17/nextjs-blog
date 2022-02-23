@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react'
 import Hls from 'hls.js'
 
-export default function VideoPlayer({ src }) {
+export default function VideoPlayer({ src, isHoverPlay = false }) {
   const videoRef = useRef(null)
 
   useEffect(() => {
@@ -24,9 +24,20 @@ export default function VideoPlayer({ src }) {
     }
   }, [src, videoRef])
 
+  const playVideo = () => {
+    videoRef.current.play()
+  }
+  const pauseVideo = () => {
+    videoRef.current.pause()
+  }
+
   return (
     <>
-      <video ref={videoRef} />
+      <video
+        ref={videoRef}
+        onMouseOver={isHoverPlay ? () => playVideo(): () => {}}
+        onMouseOut={isHoverPlay ? () => pauseVideo(): () => {}}
+        />
       <style jsx>{`
         video {
           max-width: 100%;

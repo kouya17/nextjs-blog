@@ -28,7 +28,7 @@ const Post = ({ postData, url }: PostProps) => {
             </p>
             */}
             <div className="m-1">
-              <VideoPlayer src={postData.fileData.matter.m3u8} />
+              <VideoPlayer src={postData.fileData.matter.m3u8} isHoverPlay={true} />
             </div>
             <small className="m-1 invisible">
               <Date dateString={postData.fileData.matter.date} />

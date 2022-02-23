@@ -137,7 +137,7 @@ export default function Home({
       <Head>
         <title>{siteTitle}</title>
       </Head>
-      <h1 className='my-4 font-bold text-2xl'>記事一覧</h1>
+      <h2 className='my-4 font-bold text-2xl'>記事一覧</h2>
       <h2 className='mt-4 mb-2 text-lg'>キーワードで絞り込む (複数選んだ場合はAND検索)</h2>
       <Tags tags={tags} onClick={onTagClick}/>
       <h2 className='mt-4 mb-2 text-lg'>任意の単語で絞り込む (スペース区切りでAND検索可)</h2>

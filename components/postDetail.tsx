@@ -2,6 +2,7 @@ import React, { useEffect } from "react"
 import { PostData } from "../lib/posts";
 import Date from "./date"
 import Prism from 'prismjs';
+import VideoPlayer from "./videoPlayer"
 
 interface PostDetailProps {
   postData: PostData
@@ -19,6 +20,9 @@ const PostDetail = ({ postData }: PostDetailProps) => {
       </h1>
       <div className="my-2">
         <Date dateString={postData.fileData.matter.date} />
+      </div>
+      <div className="m-1">
+        <VideoPlayer src={postData.fileData.matter.m3u8} />
       </div>
       <div className="prose line-numbers">
         <div dangerouslySetInnerHTML={{ __html: postData.fileData.contentHtml }} />

@@ -2,7 +2,7 @@ import Head from 'next/head'
 import Link from 'next/link'
 import Navigation from './navigation'
 
-export const siteTitle = 'Vtrend'
+export const siteTitle = 'Cooking Timelaps Vlog'
 
 export default function Layout({
   children,
@@ -17,25 +17,19 @@ export default function Layout({
         <link rel="icon" href="/favicon.ico" />
         <meta
           name="description"
-          content="Learn how to build a personal website using Next.js"
-        />
-        <meta
-          property="og:image"
-          content={`https://og-image.vercel.app/${encodeURI(
-            siteTitle
-          )}.png?theme=light&md=0&fontSize=75px&images=https%3A%2F%2Fassets.zeit.co%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fnextjs-black-logo.svg`}
+          content="主に料理のタイムラプス動画を載せているブログです。"
         />
         <meta name="og:title" content={siteTitle} />
-        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:card" content="summary" />
       </Head>
       <Navigation
         title={siteTitle}
         menu={[{name: 'aaa', path: '/'}, {name: 'bbb', path: '/'}]}
       />
-      <div className='container mx-auto'>
+      <div className='container mx-auto px-4'>
         <main>{children}</main>
         {!home && (
-          <div>
+          <div className='py-3'>
             <Link href="/">
               <a>← Back to home</a>
             </Link>

@@ -5,14 +5,14 @@ import { motion } from "framer-motion"
 
 const Posts = ({ postsData, path }: { postsData: PostData[], path: string }) => {
   return (
-    <div className="grid m-3 md:grid-cols-1 lg:grid-cols-3">
+    <div className="grid my-3 md:grid-cols-1 lg:grid-cols-3">
       {postsData.map((post) => {
         return (
           <motion.li
             animate={{ opacity: 1, y: 0 }}
             initial={{ opacity: 0, y: 10 }}
             transition={{ duration: 0.3 }}
-            className="m-4"
+            className="my-4 mx-1"
             key={post.fileData.id}
           >
             <div className="h-full">
