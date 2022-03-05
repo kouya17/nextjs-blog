@@ -2,7 +2,7 @@ import Head from 'next/head'
 import Link from 'next/link'
 import Navigation from './navigation'
 
-export const siteTitle = 'Cooking Timelaps Vlog'
+export const siteTitle = 'Cooking Timelapse Vlog'
 
 export default function Layout({
   children,
