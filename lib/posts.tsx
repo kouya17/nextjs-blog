@@ -13,6 +13,8 @@ export interface PostMatter {
   tags: string[];
   abstract: string;
   m3u8: string;
+  time: number;
+  score: number;
 }
 
 export interface PostFileData {

@@ -114,7 +114,7 @@ export default function Home({
     setSearchText(text)
     updateRenderPosts(selectedTags, text)
   }
-  const sortKinds = ["新着", "閲覧数"]
+  const sortKinds = ["新着"]
   const onSelectChange = (sort: string) => {
     console.log(`sort: ${sort}`)
     if (sort === '閲覧数') {
@@ -131,6 +131,10 @@ export default function Home({
       }))
     }
   }
+  const styles = {
+    unPushedButttonClass: 'bg-gray-50 hover:bg-gray-100 text-black',
+    pushedButtonClass: 'bg-blue-500 hover:bg-blue-600 text-white'
+  }
 
   return (
     <Layout home>
@@ -139,7 +143,7 @@ export default function Home({
       </Head>
       <h2 className='my-4 font-bold text-2xl'>記事一覧</h2>
       <h2 className='mt-4 mb-2 text-lg'>キーワードで絞り込む (複数選んだ場合はAND検索)</h2>
-      <Tags tags={tags} onClick={onTagClick}/>
+      <Tags tags={tags} styles={styles} onClick={onTagClick}/>
       <h2 className='mt-4 mb-2 text-lg'>任意の単語で絞り込む (スペース区切りでAND検索可)</h2>
       <Search onChange={onSearchChange}/>
       <h2 className='mt-4 mb-2 text-lg'>表示順</h2>

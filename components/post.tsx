@@ -11,16 +11,21 @@ interface PostProps {
 }
 
 const Post = ({ postData, url }: PostProps) => {
+  const smallTagStyles = {
+    unPushedButttonClass: 'bg-gray-0 text-sm',
+    pushedButtonClass: 'bg-gray-0 text-sm'
+  }
+
   return (
     <Link href={url}>
       <a>
-        <div className="flex p-3 bg-white border-2 border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 break-all h-full relative">
+        <div className="flex p-3 bg-white border-2 border-gray-200 rounded-lg shadow-sm break-all h-full relative">
           <div className="flex flex-col">
             <h2 className="font-bold text-lg m-1 line-clamp-2">
               {postData.fileData.matter.title}
             </h2>
             <div className="m-1">
-              <Tags tags={postData.fileData.matter.tags} />
+              <Tags tags={postData.fileData.matter.tags} styles={smallTagStyles} />
             </div>
             {/*
             <p className="m-1 line-clamp-3">
