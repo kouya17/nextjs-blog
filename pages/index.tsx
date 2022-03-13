@@ -114,17 +114,29 @@ export default function Home({
     setSearchText(text)
     updateRenderPosts(selectedTags, text)
   }
-  const sortKinds = ["新着"]
+  const sortKinds = ["新着", "調理時間が短い", "おいしい"]
   const onSelectChange = (sort: string) => {
     console.log(`sort: ${sort}`)
     if (sort === '閲覧数') {
-      setRenderPosts(renderPosts.sort((a, b) => {
+      setRenderPosts([...renderPosts].sort((a, b) => {
         if (a.view < b.view) return -1
         if (a.view > b.view) return 1
         return 0
       }))
+    } else if (sort === '調理時間が短い') {
+      setRenderPosts([...renderPosts].sort((a, b) => {
+        if (a.fileData.matter.time < b.fileData.matter.time) return -1
+        if (a.fileData.matter.time > a.fileData.matter.time) return 1
+        return 0
+      }))
+    } else if (sort === 'おいしい') {
+      setRenderPosts([...renderPosts].sort((a, b) => {
+        if (a.fileData.matter.score > b.fileData.matter.score) return -1
+        if (a.fileData.matter.score < a.fileData.matter.score) return 1
+        return 0
+      }))
     } else {
-      setRenderPosts(renderPosts.sort((a, b) => {
+      setRenderPosts([...renderPosts].sort((a, b) => {
         if (a.fileData.matter.date < b.fileData.matter.date) return -1
         if (a.fileData.matter.date > b.fileData.matter.date) return 1
         return 0

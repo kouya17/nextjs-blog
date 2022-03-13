@@ -35,11 +35,12 @@ const Post = ({ postData, url }: PostProps) => {
             <div className="m-1">
               <VideoPlayer src={postData.fileData.matter.m3u8} isHoverPlay={true} />
             </div>
-            <small className="m-1 invisible">
-              <Date dateString={postData.fileData.matter.date} />
-            </small>
-            <small className="m-1 absolute bottom-3">
-              <Date dateString={postData.fileData.matter.date} />
+            <small className="m-1 flex">
+              <div className="mr-3">調理時間: {postData.fileData.matter.time}分</div>
+              <div className="mr-3">おいしさ: {postData.fileData.matter.score}/10</div>
+              <div className="ml-auto">
+                <Date dateString={postData.fileData.matter.date} />
+              </div>
             </small>
           </div>
         </div>
