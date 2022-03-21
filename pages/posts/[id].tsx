@@ -11,9 +11,11 @@ export default function Post({ postData }: { postData: PostData }) {
       <Head>
         <title>{postData.fileData.matter.title}</title>
       </Head>
-      <article>
-        <PostDetail postData={postData} />
-      </article>
+      <div className='flex justify-center'>
+        <article>
+          <PostDetail postData={postData} />
+        </article>
+      </div>
     </Layout>
   )
 }

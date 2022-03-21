@@ -14,7 +14,7 @@ const PostDetail = ({ postData }: PostDetailProps) => {
   });
 
   return (
-    <div>
+    <div className="prose">
       <h1 className="text-3xl font-bold mt-5 mb-3">
         {postData.fileData.matter.title}
       </h1>
@@ -24,7 +24,7 @@ const PostDetail = ({ postData }: PostDetailProps) => {
       <div className="mx-1 my-5">
         <VideoPlayer src={postData.fileData.matter.m3u8} />
       </div>
-      <div className="prose line-numbers my-5">
+      <div className="line-numbers my-5">
         <h2>調理時間</h2>
         <p>{postData.fileData.matter.time}分</p>
         <h2>おいしさ</h2>
