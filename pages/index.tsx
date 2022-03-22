@@ -137,8 +137,8 @@ export default function Home({
       }))
     } else {
       setRenderPosts([...renderPosts].sort((a, b) => {
-        if (a.fileData.matter.date < b.fileData.matter.date) return -1
-        if (a.fileData.matter.date > b.fileData.matter.date) return 1
+        if (a.fileData.matter.date > b.fileData.matter.date) return -1
+        if (a.fileData.matter.date < b.fileData.matter.date) return 1
         return 0
       }))
     }
